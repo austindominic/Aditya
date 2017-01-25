@@ -1,0 +1,227 @@
+﻿@model List<Aditya.Models.Page.PageContent>
+
+@{
+    Scripts scripts = new Scripts();
+    ViewBag.Title = "Index";
+
+}
+@if (scripts.Admin())
+{
+
+    @Html.ActionLink("Create new page", "Create", null, new { @class = "btn btn-rounded  btn-theme-color" })
+}
+@foreach (var dataRead in Model)
+{
+
+    <section class="page-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-uppercase">@dataRead.PageName</h4>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href=@Url.Content("~/" + @dataRead.PageUrl)>@dataRead.PageName</a>
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+        @{
+            if (scripts.Admin())
+            {
+                @Html.ActionLink("Edit this page", "Edit", new { id = dataRead.PageContentId }, new { @class = "btn btn-rounded  btn-theme-color" })
+            }
+        }
+    </section>
+    <section class="body-content">
+        @foreach (var sectionData in dataRead.Sections)
+        {
+            @(new HtmlString(sectionData.SectionContent))
+
+            if (scripts.Admin())
+            {
+                @Html.ActionLink("Edit this section", "EditSection", new { Id = sectionData.SectionId }, new { @class = "btn btn-rounded  btn-theme-color" })
+
+                using (Html.BeginForm("DeleteSection", "Page", FormMethod.Post,
+                    new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="sectionID" id="sectionID" value="@sectionData.SectionId" />
+                    <input type="submit" class="btn  btn-rounded  btn-theme-color " value="Delete this section" />
+                }
+            }
+        }
+        @if (scripts.Admin())
+        {
+            @Html.ActionLink("Add  New section", "AddSection", new { PageContentId = dataRead.PageContentId }, new { @class = "btn btn-rounded  btn-theme-color" })
+        }
+
+        @if (scripts.Admin())
+        {
+            <div class="col-md-6">
+
+                <!-- toggle 2 start-->
+                <dl class="toggle">
+                    <dt>
+                        <a href="" class="">Add New testimonial</a>
+                    </dt>
+                    <dd style="display: none;">
+
+                        @using (Html.BeginForm("AddTestimonial", "Page", FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                        {
+
+
+                            <div class="form-horizontal" style="text-align: center;">
+
+
+                                <div class="form-group">
+                                    <input type="text" name="UserName" placeholder="User Name" class="form-control" id="UserName" />
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input type="file" name="file" id="file" class="form-control" />
+
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input type="text" name="UserDescription" placeholder="User Information" id="UserDescription" class="form-control" />
+
+                                </div>
+                                <div class="form-group">
+
+
+                                    <textarea placeholder="Type Testimonial Here...." tabindex="5" name="Testimonial" class="form-control" required></textarea>
+
+                                </div>
+
+                                <input type="hidden" name="PageContentId" value="@dataRead.PageContentId" />
+
+
+
+                                <div class="form-group">
+
+                                    <input type="submit" value="Create" class="btn btn-rounded btn-theme-color text-uppercase" />
+
+                                </div>
+                            </div>
+                        }
+
+
+                    </dd>
+                </dl>
+                <!-- toggle 2 end-->
+            </div>
+        }
+
+        @if (scripts.Admin())
+        {
+            <div class="col-md-6">
+
+                <!-- toggle 2 start-->
+                <dl class="toggle">
+                    <dt>
+                        <a href="" class="">Add New Gallery Image</a>
+                    </dt>
+                    <dd style="display: none;">
+
+                        @using (Html.BeginForm("AddGallery", "Page", FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                        {
+
+
+                            <div class="form-horizontal" style="text-align: center;">
+
+                                <div class="form-group">
+
+
+
+                                    <input type="text" name="GalleryName" placeholder="Gallery Name" id="GalleryName" class="form-control" />
+
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input type="file" name="file" id="file" class="form-control" />
+
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input type="text" name="GalleryDescription" placeholder="Gallery Description" id="GalleryDescription" class="form-control" />
+
+                                </div>
+
+                                <input type="hidden" name="PageContentId" value="@dataRead.PageContentId" />
+
+
+
+                                <div class="form-group">
+
+                                    <input type="submit" value="Create" class="btn btn-rounded btn-theme-color text-uppercase" />
+
+                                </div>
+                            </div>
+                        }
+
+                    </dd>
+                </dl>
+                <!-- toggle 2 end-->
+            </div>
+        }
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    <div class="portfolio col-3 portfolio-gallery gutter " style="position: relative; height: 847.5px;">
+
+                        @foreach (var GalleryData in dataRead.GalleryMain)
+                        {
+
+                            <div class="portfolio-item" style="position: absolute; left: 0%; top: 0px;">
+
+                                @if (scripts.Admin())
+                                {
+                                    @Html.ActionLink("Edit this Image", "EditGallery", new { id = GalleryData.GalleryId }, new { @class = "btn btn-rounded  btn-theme-color" })
+
+                                }
+                                <div class="thumb">
+
+                                    <img src="~/assets/img/portfolio/@(GalleryData.GalleryImageLink)" alt="">
+                                    <div class="portfolio-hover">
+                                        <div class="action-btn">
+                                            <a href="~/assets/img/portfolio/@(GalleryData.GalleryImageLink)" class="popup-gallery" title="@GalleryData.GalleryName">
+                                                <i class="icon-basic_magnifier"></i>
+                                            </a>
+                                        </div>
+                                        <div class="portfolio-description">
+                                            <h4><a href="~/assets/img/portfolio/@(GalleryData.GalleryImageLink)" class="popup-gallery2" title="@GalleryData.GalleryName">@GalleryData.GalleryName</a></h4>
+                                            <p>
+                                                @GalleryData.GalleryDescription
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+</section>
+            }
+
+

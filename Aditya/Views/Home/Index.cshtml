@@ -1,0 +1,56 @@
+﻿@model  List<Aditya.Models.Page.PageContent>
+@{
+    Scripts scripts = new Scripts();
+    ViewBag.Title = "Home";
+}
+ 
+
+
+<!--body content start-->
+
+ 
+            @if (scripts.Admin())
+            {
+
+                
+                <a class="btn btn-rounded  btn-theme-color" href=@Url.Content("~/Page/Create")>Create new page</a>
+            }
+            @foreach (var dataRead in Model)
+            {
+
+ 
+                    foreach (var sectionData in dataRead.Sections)
+                    {
+
+
+                        @Html.Raw(sectionData.SectionContent);
+
+                        if (scripts.Admin())
+                        {
+
+                            <a class="btn btn-rounded  btn-theme-color" href=@Url.Content("~/Page/EditSection?Id=" + sectionData.SectionId)>Edit Section</a>
+
+                            using (Html.BeginForm("DeleteSection", "Page", FormMethod.Post,
+                                new { enctype = "multipart/form-data" }))
+                            {
+                                <input type="hidden" name="sectionID" id="sectionID" value="@sectionData.SectionId" />
+                                <input type="submit" class="btn  btn-rounded  btn-theme-color " value="Delete this section" />
+                            }
+                        }
+
+
+
+                    }
+
+                    if (scripts.Admin())
+                    {
+
+                        <a class="btn btn-rounded  btn-theme-color" href=@Url.Content("~/Page/AddSection?PageContentId=" + dataRead.PageContentId)>Add  New section</a>
+                    }
+
+               
+            }
+
+        
+<!--body content end-->
+

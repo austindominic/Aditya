@@ -1,0 +1,76 @@
+﻿@model List<Aditya.Models.Menu.MainMenu>
+<footer id="footer" class="dark">
+    <div class="primary-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href=@Url.Content("~") class="m-bot-20 footer-logo">
+                        <img src="../assets/img/logo-dark.png"  style="width:80%">
+                    </a>
+                    <p style="color:#eee;">@Constants.AppDescription</p>
+
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-uppercase">recent posts</h5>
+                    <ul class="f-list">
+                        <li>
+                            <a href="#">Standard Blog post</a>
+                        </li>
+                        <li>
+                            <a href="#">Quotation post</a>
+                        </li>
+                        <li>
+                            <a href="#">Audio Post</a>
+                        </li>
+                        <li>
+                            <a href="#">Massive Video Demo</a>
+                        </li>
+                        <li>
+                            <a href="#">Blog Image Post</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-uppercase">Popular Courses</h5>
+                    <ul class="f-list">
+                        <li>
+                            <a href="#">About Massive</a>
+                        </li>
+                        <li>
+                            <a href="#">Career</a>
+                        </li>
+                        <li>
+                            <a href="#">Terms &amp; Condition</a>
+                        </li>
+                        <li>
+                            <a href="#">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="secondary-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="m-top-10">&copy; Copyright @DateTime.Now.Year -@Constants.AppName Designed by <a href="#" class="f-link" target="_blank">Austin</a> | All Rights Reserved</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="social-link circle pull-right">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-dribbble"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
